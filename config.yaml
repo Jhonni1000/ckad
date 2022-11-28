@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alpine-config
+data: 
+  localport: "localhost:8082"
+  external_url: "linux.com"

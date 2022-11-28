@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-pod
+  namespace: ckad-ns3
+spec:
+  volumes:
+    - name: sidecar-db
+      emptyDir: {}
+  containers:
+    - name: busybox
+      image: busybox
+      imagePullPolicy: IfNotPresent
+      command:
+        - /bin/sh
+        - "-c"
+        - "while true; do date >> /var/log/date.txt; sleep 5; done"
+      volumeMounts:
+        - name: sidecar-db
+          mountPath: /var/log/
+    - name: sidecar-pod
+      image: nginx:latest
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 80
+          protocol: TCP
+      volumeMounts:
+        - name: sidecar-db
+          mountPath: /usr/share/nginx/html
