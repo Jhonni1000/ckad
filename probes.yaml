@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-probe
+  namespace: ckad-ns3
+  labels:
+    app: probe
+spec:
+  containers:
+    - name: httpd
+      image: httpd:latest
+      ports:
+        - containerPort: 80
+          protocol: TCP
+      resources:
+        limits:
+          memory: "64Mi"
+          cpu: "250m"
+      readinessProbe:
+        exec:
+          command:
+            - cat
+            - /usr/local/apache2/htdocs/index.html
+        initialDelaySeconds: 10
+        periodSeconds: 60
+    
