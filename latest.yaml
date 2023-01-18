@@ -1,46 +1,4 @@
-#You are working on a project in which you are using Kubernetes and Helm. You are deploying a lot of microservices to the cluster, but you have realised that the Kubernetes manifest files are nearly the same. Write a generic deployment template to simplify things.
-#Here is the deployment definition (i.e. how Helm's values.yaml file will appear after the template is rendered):
-#application:
-#the name of the app, used as deployment name and in labels role: # may be backend, middleware or something else, used in labels port: # port on which the main container listens
-#image:
-#name: # Name and tag of the image, e.g. alpine:latest registry: # Docker registry for the image
-#replicaCount: # number of replicas for the deployment revisionHistoryLimit: # number of revision history entries
-#probes:
-#liveness:
-#path: # path for http Get probe
-#initialDelay: # initialDelay for the probe
-#timeoutSeconds: # timeout for the probe
-#periodSeconds: # how often the probe should be executed
-#failureThreshold: # how many times it can fail before failing the whole probe
-#readiness:
-#path: # path for http Get probe
-#initialDelay: # initialDelay for the probe
-#timeoutSeconds: # timeout for the probe
-#periodSeconds: # how often the probe should be executed
-#failureThreshold: # how many times it can fail before failing the whole probe
-#resources:
-#memory:
-#request: # Memory request for the app container
-#limit: # Memory limit for the app container
-#cpu:
-#request: # CPU request for the app container
-#limit: # CPU limit for the app container
-#env: # key-value definition of environment variables, example below MY_VARIABLE: 123
-#MY_VARIABLE2: some-value
-# ...
-#Take the following points into account:
-#Use apps/v1 in the Deployment definition.
-#• There should be three labels everywhere: app, role and release.
-#⚫ application.name is used as:
-#• deployment name;
-#• container name;
-#• app label in deployment, pod and selector.
-#application.port is used as a container port and for probes.
-#release label should contain the release name.
-#• No default values are expected (assume that everything except image.registry is always provided).
-#• If image.registry is not defined, it should use the default registry.
-#• image.registry (if provided) will not end with /.
-#• The execution environment is Helm v3.0.2 and Kubernetes 1.17 */
+
 
 apiVersion: apps/v1
 kind: Deployment
